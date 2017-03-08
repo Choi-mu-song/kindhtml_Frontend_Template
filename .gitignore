@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/visualstudiocode,visualstudio,webstorm,intellij,sublimetext,eclipse,git
 
+dist/
+
 ### Eclipse ###
 
 .metadata
