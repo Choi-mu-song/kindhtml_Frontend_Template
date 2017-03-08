@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var template = require('gulp-template-html');
 var connect = require('gulp-connect');
+var livereload = require('gulp-livereload');
 
 var DIR = {
     SRC: 'src',
@@ -26,7 +27,12 @@ var DIST = {
     HTML: DIR.DIST + '/'
 };
 
-var condition = true;
+gulp.task('connect', function(){
+    connect.server({
+        livereload: true,
+        root: 'dist'
+    })
+});
 
 gulp.task('indexHTML', function(){        
     return gulp.src(SRC.HTML)
@@ -42,6 +48,12 @@ gulp.task('subHTML', function(){
     .pipe(connect.reload());
 });
 
-gulp.task('default', ['indexHTML', 'subHTML'], function(){
+gulp.task('watch', function(){
+    livereload.listen();
+    gulp.watch(SRC.HTML, ['indexHTML']);
+    gulp.watch(SRC.PAGES, ['subHTML']);
+});
+
+gulp.task('default', ['connect', 'indexHTML', 'subHTML', 'watch'], function(){
 
 });
