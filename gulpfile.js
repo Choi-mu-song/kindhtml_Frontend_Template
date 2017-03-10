@@ -4,6 +4,9 @@ var gulpif = require('gulp-if');
 var template = require('gulp-template-html');
 var connect = require('gulp-connect');
 var livereload = require('gulp-livereload');
+var babel = require('gulp-babel');
+var concat = require('gulp-concat');
+var sass = require('gulp-sass');
 
 var DIR = {
     SRC: 'src',
@@ -48,12 +51,35 @@ gulp.task('subHTML', function(){
     .pipe(connect.reload());
 });
 
+gulp.task('sass', function(){
+    return gulp.src(SRC.SCSS)
+    .pipe(sass({
+        outputStyle: 'compressed' //nested, expanded, compact, compressed
+    }))
+    .pipe(gulp.dest(DIST.CSS))
+    .pipe(connect.reload());
+});
+
+gulp.task('jquery', function(){
+    return gulp.src('node_modules/jquery/dist/jquery.min.js')
+    .pipe(gulp.dest(DIST.JS));
+});
+
+gulp.task('babel', function(){
+    return gulp.src(SRC.JS)
+    .pipe(babel())
+    .pipe(concat("all.js"))
+    .pipe(gulp.dest(DIST.JS));
+});
+
 gulp.task('watch', function(){
     livereload.listen();
     gulp.watch(SRC.HTML, ['indexHTML']);
     gulp.watch(SRC.PAGES, ['subHTML']);
+    gulp.watch(SRC.JS, ['babel']);
+    gulp.watch(SRC.SCSS, ['sass']);
 });
 
-gulp.task('default', ['connect', 'indexHTML', 'subHTML', 'watch'], function(){
+gulp.task('default', ['connect', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'watch'], function(){
 
 });

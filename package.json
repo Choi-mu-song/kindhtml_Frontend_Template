@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,8 +18,12 @@
   },
   "homepage": "https://github.com/Choi-mu-song/kindhtml_Frontend_Template#readme",
   "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-env": "^1.2.1",
+    "express": "^4.15.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.0.2",
+    "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^2.0.11",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^5.0.0",
@@ -29,7 +34,10 @@
     "gulp-template-html": "^0.2.0",
     "gulp-uglify": "^1.5.4",
     "gulp-watch": "^4.3.8",
-    "jquery": "latest"
+    "jquery": "latest",
+    "mssql": "^3.3.0",
+    "mysql": "^2.13.0",
+    "node-normalize-scss": "^1.4.0"
   },
   "engines": {
     "node": "latest"
