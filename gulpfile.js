@@ -1,12 +1,13 @@
 'use strict';
 var gulp = require('gulp');
-var gulpif = require('gulp-if');
 var template = require('gulp-template-html');
 var connect = require('gulp-connect');
 var livereload = require('gulp-livereload');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var imgmin = require('gulp-imagemin');
+var del = require('del');
 
 var DIR = {
     SRC: 'src',
@@ -15,8 +16,9 @@ var DIR = {
 
 var SRC = {
     JS: DIR.SRC + '/js/*.js',
+    PLUGINS: DIR.SRC + '/js/plugins/*.js',
     CSS: DIR.SRC + '/css/*.css',
-    IMG: DIR.SRC + '/img/*.*',
+    IMG: DIR.SRC + '/img/**',
     SCSS: DIR.SRC + '/scss/*.scss',
     HTML: DIR.SRC + '/*.html',
     PAGES: DIR.SRC + '/pages/*.html'
@@ -24,6 +26,7 @@ var SRC = {
 
 var DIST = {
     JS: DIR.DIST + '/js',
+    PLUGINS: DIR.DIST + '/js/plugins',
     CSS: DIR.DIST + '/css',
     IMG: DIR.DIST + '/img',
     PAGES: DIR.DIST + '/pages',
@@ -33,8 +36,14 @@ var DIST = {
 gulp.task('connect', function(){
     connect.server({
         livereload: true,
-        root: 'dist'
+        root: 'dist'        
     })
+});
+
+gulp.task('imgmin', function () {
+    gulp.src(SRC.IMG)
+        .pipe(imgmin())
+        .pipe(gulp.dest(DIST.IMG));
 });
 
 gulp.task('indexHTML', function(){        
@@ -72,14 +81,24 @@ gulp.task('babel', function(){
     .pipe(gulp.dest(DIST.JS));
 });
 
+gulp.task('plugins', function () {
+    return gulp.src(SRC.PLUGINS)
+    .pipe(gulp.dest(DIST.PLUGINS));
+})
+
+gulp.task('clean', function () {
+    return del.sync([DIR.DIST]);
+})
+
 gulp.task('watch', function(){
-    livereload.listen();
+    // livereload.listen();
     gulp.watch(SRC.HTML, ['indexHTML']);
     gulp.watch(SRC.PAGES, ['subHTML']);
     gulp.watch(SRC.JS, ['babel']);
     gulp.watch(SRC.SCSS, ['sass']);
+	gulp.watch(SRC.IMG, ['imgmin']);
 });
 
-gulp.task('default', ['connect', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'watch'], function(){
+gulp.task('default', ['connect', 'clean', 'imgmin', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'plugins', 'watch'], function(){
 
 });
