@@ -78,10 +78,10 @@ gulp.task('jquery', function(){
 
 gulp.task('babel', function(){
     return gulp.src(SRC.JS)
-    .pipe(babel())
-    .pipe(uglify())
+    .pipe(babel())    
     .pipe(concat("all.js"))
-    .pipe(gulp.dest(DIST.JS));
+    .pipe(gulp.dest(DIST.JS))
+    .pipe(uglify());
 });
 
 gulp.task('plugins', function () {
