@@ -7,6 +7,7 @@ var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var imgmin = require('gulp-imagemin');
+var uglify = require('gulp-uglify');
 var del = require('del');
 
 var DIR = {
@@ -36,7 +37,8 @@ var DIST = {
 gulp.task('connect', function(){
     connect.server({
         livereload: true,
-        root: 'dist'        
+        root: 'dist',
+        port: 8888    
     })
 });
 
@@ -77,6 +79,7 @@ gulp.task('jquery', function(){
 gulp.task('babel', function(){
     return gulp.src(SRC.JS)
     .pipe(babel())
+    .pipe(uglify())
     .pipe(concat("all.js"))
     .pipe(gulp.dest(DIST.JS));
 });
