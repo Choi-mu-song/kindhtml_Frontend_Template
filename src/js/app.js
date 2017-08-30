@@ -3,7 +3,13 @@
     $('#example2').accordion({
         canToggle: true
     });  
+
+    $('.testWrap').on('click', function(e) {
+        console.log(e.pageX + " ," + e.pageY);
+    });
 })();
+
+
 
 // var repeatConsoleLog = function(i, callback) {
 //     setTimeout(function() {
