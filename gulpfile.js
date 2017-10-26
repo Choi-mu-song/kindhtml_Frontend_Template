@@ -6,7 +6,7 @@ var livereload = require('gulp-livereload');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
-var imgmin = require('gulp-imagemin');
+// var imgmin = require('gulp-imagemin');
 var uglify = require('gulp-uglify');
 var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfig.json');
@@ -45,11 +45,11 @@ gulp.task('connect', function(){
     })
 });
 
-gulp.task('imgmin', function () {
-    gulp.src(SRC.IMG)
-        .pipe(imgmin())
-        .pipe(gulp.dest(DIST.IMG));
-});
+// gulp.task('imgmin', function () {
+//     gulp.src(SRC.IMG)
+//         .pipe(imgmin())
+//         .pipe(gulp.dest(DIST.IMG));
+// });
 
 gulp.task('indexHTML', function(){        
     return gulp.src(SRC.HTML)
@@ -110,9 +110,9 @@ gulp.task('watch', function(){
     gulp.watch(SRC.JS, ['babel']);
     gulp.watch(SRC.TS, ['ts']);
     gulp.watch(SRC.SCSS, ['sass']);
-	gulp.watch(SRC.IMG, ['imgmin']);
+	// gulp.watch(SRC.IMG, ['imgmin']);
 });
 
-gulp.task('default', ['connect', 'clean', 'imgmin', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'ts', 'plugins', 'watch'], function(){
+gulp.task('default', ['connect', 'clean', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'ts', 'plugins', 'watch'], function(){
     
 });

@@ -9,22 +9,6 @@
     });
 })();
 
-
-
-// var repeatConsoleLog = function(i, callback) {
-//     setTimeout(function() {
-//         console.log(i);
-//         if (i >= 9) {
-//             callback();
-//         } else {
-//             repeatConsoleLog(i+1, callback);
-//         }
-//     }, 10);
-// }
-// repeatConsoleLog(0, function() {
-//     console.log('done');
-// });
-
 function Person() {}
 
 Person.prototype.walk = function() {
@@ -86,27 +70,3 @@ console.log(myObj.getCnt);
 console.log(myObj.getCnt2());
 console.log(myObj.getHi3());
 console.log(myObj.getCnt2());
-
-MYAPP.namespace('MYAPP.utilities.array');
-
-MYAPP.utilities.array = function () {
-
-    var uobj = MYAPP.utilities.object,
-        ulang = MYAPP.utilities.lang;
-
-    var array_string = '[object Array]',
-        ops = Object.prototype.toString;
-
-    return {
-        inArray: function (needle, haystack) {
-            for (var i = 0, max = haystack.length; i < max; i += 1) {
-                if (haystack[i] === needle) {
-                    return true;
-                }
-            }
-        },
-        isArray: function (a) {
-            return ops.call(a) === array_string;
-        }
-    }
-}();
