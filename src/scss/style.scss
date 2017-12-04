@@ -5,6 +5,14 @@
     word-wrap: break-word;
     white-space: pre-line;
 }
+.vhCenter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
 .scrolling {
     color: white;
     left: 0;
