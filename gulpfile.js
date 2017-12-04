@@ -79,6 +79,11 @@ gulp.task('jquery', function(){
     .pipe(gulp.dest(DIST.JS));
 });
 
+gulp.task('scrollDir', function(){
+    return gulp.src('node_modules/scrolldir/dist/scrolldir.min.js')    
+    .pipe(gulp.dest(DIST.PLUGINS));
+});
+
 gulp.task('babel', function(){
     return gulp.src(SRC.JS)
     .pipe(babel())    
@@ -113,6 +118,6 @@ gulp.task('watch', function(){
 	// gulp.watch(SRC.IMG, ['imgmin']);
 });
 
-gulp.task('default', ['connect', 'clean', 'indexHTML', 'subHTML', 'sass', 'jquery', 'babel', 'ts', 'plugins', 'watch'], function(){
+gulp.task('default', ['connect', 'clean', 'indexHTML', 'subHTML', 'sass', 'jquery', 'scrollDir', 'babel', 'ts', 'plugins', 'watch'], function(){
     
 });

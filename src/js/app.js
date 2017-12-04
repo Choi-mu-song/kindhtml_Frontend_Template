@@ -1,12 +1,6 @@
 'use strict';
 (function () {
-    $('#example2').accordion({
-        canToggle: true
-    });  
-
-    $('.testWrap').on('click', function(e) {
-        console.log(e.pageX + " ," + e.pageY);
-    });
+    scrollDir();
 })();
 
 function Person() {}
@@ -70,3 +64,47 @@ console.log(myObj.getCnt);
 console.log(myObj.getCnt2());
 console.log(myObj.getHi3());
 console.log(myObj.getCnt2());
+
+var HTMLChanger = (function() {
+    var contents = 'contents';
+    
+    var changeHTML = function() {
+        var element = document.getElementById('attribute-to-change');
+        element.innerHTML = contents;
+    }
+
+    return {
+        callChangeHTML: function() {
+            changeHTML();
+            console.log(contents);
+        }
+    }
+})();
+
+HTMLChanger.callChangeHTML();
+
+var TeslaModelS = function() {
+    this.numWheels = 4;
+    this.manufacturer = 'Tesla';
+    this.make = 'Model S';
+}
+
+TeslaModelS.prototype.go = function() {
+
+}
+TeslaModelS.prototype.stop = function() {
+
+}
+
+TeslaModelS.prototype = {
+    left: function() {
+
+    },
+    right: function() {
+
+    }
+}
+
+var Subject = function() {
+    
+}

@@ -1,30 +1,52 @@
 @import "node_modules/node-normalize-scss/normalize";
 @import "mixins/css3-mixins";
-
-
+.lineBrk {
+    word-break: normal;    
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+.scrolling {
+    color: white;
+    left: 0;
+    margin: 0;
+    padding: 2rem 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    p {
+        margin: 0;
+    }
+    &--down {
+        background-color: green;
+        transition: top .5s ease;
+        top: -91px;
+        [data-scrolldir=down] & {
+            top: 0;
+        }
+    }
+    &--up {
+        background-color: red;
+        bottom: -91px;
+        transition: bottom .5s ease;
+        [data-scrolldir=up] & {
+            bottom: 0;
+        }
+    }
+}
 
 // Extra small devices (portrait phones, less than 576px)
 // No media query since this is the default in Bootstrap
-
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { 
-
- }
+@media (min-width: 576px) {}
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { 
-
- }
+@media (min-width: 768px) {}
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) { 
-
- }
+@media (min-width: 992px) {}
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { 
-
- }
+@media (min-width: 1200px) {}
 
 @media print {
     .testWrap {
