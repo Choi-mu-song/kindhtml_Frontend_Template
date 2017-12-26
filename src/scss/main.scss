@@ -1,10 +1,34 @@
-@import "node_modules/node-normalize-scss/normalize";
+@charset 'utf-8';
+@import "node_modules/css-reset-and-normalize-sass/scss/reset-and-normalize";
 @import "mixins/css3-mixins";
+
+//@mixin 
+@mixin centerWrap($width) {
+    width: $width;
+    margin: 0 auto;
+}
+
+//common var
+$primaryColor:#333333;
+
+
+.wrap {
+    @include centerWrap(940px);
+}
+
+table {    
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    table-layout: fixed
+}
+
 .lineBrk {
-    word-break: normal;    
+    word-break: normal;
     word-wrap: break-word;
     white-space: pre-line;
 }
+
 .vhCenter {
     position: absolute;
     top: 0;
@@ -13,6 +37,7 @@
     right: 0;
     margin: auto;
 }
+
 .scrolling {
     color: white;
     left: 0;
