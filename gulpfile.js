@@ -3,13 +3,11 @@ var gulp = require('gulp');
 var template = require('gulp-template-html');
 var connect = require('gulp-connect');
 var livereload = require('gulp-livereload');
-var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
-// var imgmin = require('gulp-imagemin');
 var uglify = require('gulp-uglify');
 var ts = require('gulp-typescript');
-var tsProject = ts.createProject('tsconfig.json');
+var minify = require('gulp-minify');
 var del = require('del');
 
 var DIR = {
@@ -19,7 +17,7 @@ var DIR = {
 
 var SRC = {
     JS: DIR.SRC + '/js/*.js',
-    TS: DIR.SRC + '/js/*.ts',
+    // TS: DIR.SRC + '/js/*.ts',
     PLUGINS: DIR.SRC + '/js/plugins/*.js',
     CSS: DIR.SRC + '/css/*.css',
     IMG: DIR.SRC + '/img/**',
@@ -65,6 +63,17 @@ gulp.task('subHTML', function(){
     .pipe(connect.reload());
 });
 
+gulp.task('compJs', function() {
+    return gulp.src(SRC.JS)
+    .pipe(minify({
+        ext:{
+            src:'-min.js',
+            min:'.js'
+        }
+    }))
+    .pipe(gulp.dest(DIST.JS));
+});
+
 gulp.task('sass', function(){
     return gulp.src(SRC.SCSS)
     .pipe(sass({
@@ -84,20 +93,20 @@ gulp.task('scrollDir', function(){
     .pipe(gulp.dest(DIST.PLUGINS));
 });
 
-gulp.task('babel', function(){
-    return gulp.src(SRC.JS)
-    .pipe(babel())    
-    .pipe(concat("all.js"))
-    .pipe(gulp.dest(DIST.JS))
-    .pipe(uglify());
-});
+// gulp.task('babel', function(){
+//     return gulp.src(SRC.JS)
+//     .pipe(babel())    
+//     .pipe(concat("all.js"))
+//     .pipe(gulp.dest(DIST.JS))
+//     .pipe(uglify());
+// });
 
-gulp.task('ts', function() {
-    var tsResult = gulp.src(SRC.TS)
-    .pipe(tsProject());
+// gulp.task('ts', function() {
+//     var tsResult = gulp.src(SRC.TS)
+//     .pipe(tsProject());
 
-    return tsResult.js.pipe(gulp.dest(DIST.JS));
-})
+//     return tsResult.js.pipe(gulp.dest(DIST.JS));
+// })
 
 gulp.task('plugins', function () {
     return gulp.src(SRC.PLUGINS)
@@ -112,12 +121,12 @@ gulp.task('watch', function(){
     // livereload.listen();
     gulp.watch(SRC.HTML, ['indexHTML']);
     gulp.watch(SRC.PAGES, ['subHTML']);
-    gulp.watch(SRC.JS, ['babel']);
-    gulp.watch(SRC.TS, ['ts']);
+    // gulp.watch(SRC.JS, ['babel']);
+    gulp.watch(SRC.TS, ['compJs']);
     gulp.watch(SRC.SCSS, ['sass']);
 	// gulp.watch(SRC.IMG, ['imgmin']);
 });
 
-gulp.task('default', ['connect', 'clean', 'indexHTML', 'subHTML', 'sass', 'jquery', 'scrollDir', 'babel', 'ts', 'plugins', 'watch'], function(){
+gulp.task('default', ['connect', 'clean', 'indexHTML', 'subHTML', 'sass', 'jquery', 'compJs', 'scrollDir', 'plugins', 'watch'], function(){
     
 });
